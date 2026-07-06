@@ -21,14 +21,14 @@ jobs:
       - name: Build firmware
         shell: bash
         run: |
-          . $HOME/esp/esp-idf/export.sh
+          . /opt/esp/idf/export.sh
           idf.py set-target esp32s3
-          idf.py build
+          idf.py -DIDF_COMPONENT_REGISTRY_URL="https://components-file.espressif.com.cn" build
 
       - name: Merge binary
         shell: bash
         run: |
-          . $HOME/esp/esp-idf/export.sh
+          . /opt/esp/idf/export.sh
           esptool.py --chip esp32s3 merge_bin -o build/aivox3-music-full.bin @build/flash_args
 
       - name: Upload firmware
